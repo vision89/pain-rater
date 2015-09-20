@@ -23,10 +23,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   :root {
     --dark-primary-color: #303F9F;
-    --default-primary-color: #3F51B5;
-    --light-primary-color: #C5CAE9;
+    --default-primary-color: #00796B;
+    --light-primary-color: #009688;
     --text-primary-color: #ffffff; /*text/icons*/
-    --accent-color: #FF4081;
+    --accent-color: #FF7043;
     --primary-background-color: #c5cae9;
     --primary-text-color: #212121;
     --secondary-text-color: #727272;
@@ -91,10 +91,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 24px;
     min-height: 48px;
     padding: 0 16px;
+  }
+
+  paper-tabs {
+
+    --paper-tabs-selection-bar-color: var(--accent-color);
+
+    --paper-tabs: {
+
+      background-color: var(--light-primary-color);
+      color: var(--text-primary-color);
+      font-weight: bold;
+      font-size: 18px;
+
+    };
+
+  }
+
+  paper-tabs /deep/ #ink {
+
+    color: var(--accent-color);
+  
   }
 
   .login-buttons {
@@ -118,7 +139,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   .login-card {
 
-    min-width: 25em;
+    min-width: 20em;
 
   }
 
@@ -146,7 +167,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   #mainToolbar:not(.tall) .middle {
-    font-size: 18px;
+    font-size: 22px;
     padding-bottom: 0;
   }
 

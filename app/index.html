@@ -59,6 +59,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
+    <pain-rate-data selected-tab="{{selectedTab}}"></pain-rate-data>
+
     <!-- Main Area -->
       <paper-scroll-header-panel main condenses keep-condensed-header>
 
@@ -87,13 +89,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </paper-toolbar>
 
         <!-- Tabs to select different routes -->
-        <paper-tabs selected="0">
+        <paper-tabs selected="{{selectedTab}}">
 
-          <paper-tab>TAB 1</paper-tab>
+          <paper-tab>Track</paper-tab>
 
-          <paper-tab>TAB 2</paper-tab>
+          <paper-tab>Chart</paper-tab>
 
-          <paper-tab>TAB 3</paper-tab>
+          <paper-tab>Settings</paper-tab>
           
         </paper-tabs>
 
@@ -122,21 +124,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <div class="login-button-container">
           
                       <firebase-google-login-button  firebase-url="fb-google-login-app.firebaseIO.com" user="{{user}}"
-                        on-google-logged-in="googleLoggedIn" on-google-logged-out="googleLoggedOut"></firebase-google-login-button>
+                        on-google-logged-in="googleLoggedIn" on-google-logged-out="googleLoggedOut" 
+                        auto-click="{{googleAutoLogin}}"></firebase-google-login-button>
 
                     </div>
 
                     <div class="login-button-container">
                       
                       <firebase-facebook-login-button firebase-url="fb-fbook-login-app.firebaseIO.com" user="{{user}}"
-                        on-facebook-logged-in="facebookLoggedIn" on-facebook-logged-out="facebookLoggedOut"></firebase-facebook-login-button>
+                        on-facebook-logged-in="facebookLoggedIn" on-facebook-logged-out="facebookLoggedOut"
+                        auto-click="{{facebookAutoLogin}}"></firebase-facebook-login-button>
 
                     </div>
 
                     <div class="login-button-container">
                       
                       <firebase-twitter-login-button firebase-url="fb-twitter-login-app.firebaseIO.com" user="{{user}}"
-                        on-facebook-logged-in="twitterLoggedIn" on-facebook-logged-out="twitterLoggedOut"></firebase-twitter-login-button>
+                        on-twitter-logged-in="twitterLoggedIn" on-twitter-logged-out="twitterLoggedOut"
+                        auto-click="{{twitterAutoLogin}}"></firebase-twitter-login-button>
 
                     </div>
 

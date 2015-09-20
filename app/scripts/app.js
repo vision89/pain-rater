@@ -15,7 +15,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
   var app = document.querySelector('#app');
 
-
   // See https://github.com/Polymer/polymer/issues/1381
   window.addEventListener('WebComponentsReady', function() {
     // imports are loaded and elements have been registered
@@ -37,6 +36,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      */
     app.logoutClicked = function () {
 
+      switch ( app.loginType ) {
+
+        case 'facebook':
+
+          //Trigger the auto logout process
+          app.facebookAutoLogin = true;
+          break;
+        case 'google':
+
+          //Trigger the auto logout process
+          app.googleAutoLogin = true;
+          break;
+        case 'twitter':
+
+          //Trigger the auto logout process
+          app.twitterAutoLogin = true;
+          break;    
+
+      }
+
     };
 
     app.goBack = function () {
@@ -52,6 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.googleLoggedIn = function () {
 
       page.redirect( '/' );
+      app.loginType = 'google';
 
     };
 
@@ -59,9 +79,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * Google Logged out
      * @return {[type]} [description]
      */
-    app.facebookLoggedOut = function () {
+    app.googleLoggedOut = function () {
 
       page.redirect( '/' );
+      app.loginType = undefined;
 
     };
 
@@ -72,6 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.facebookLoggedIn = function () {
 
       page.redirect( '/' );
+      app.loginType = 'facebook';
 
     };
 
@@ -82,6 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.facebookLoggedOut = function () {
 
       page.redirect( '/' );
+      app.loginType = undefined;
 
     };
 
@@ -92,6 +115,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.twitterLoggedIn = function () {
 
       page.redirect( '/' );
+      app.loginType = 'twitter';
 
     };
 
@@ -102,6 +126,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.twitterLoggedOut = function () {
 
       page.redirect( '/' );
+      app.loginType = undefined;
 
     };
 
