@@ -3,13 +3,17 @@
   "private": true,
   "dependencies": {
     "firebase-element": "GoogleWebComponents/firebase-element#~1.0.6",
+    "grid-style": "polymer-grid-style#*",
     "iron-elements": "PolymerElements/iron-elements#1.0.0",
     "neon-elements": "PolymerElements/neon-elements#1.0.0",
     "page": "visionmedia/page.js#~1.6.3",
     "paper-card": "PolymerElements/paper-card#~1.0.4",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#~1.0.2",
     "paper-elements": "PolymerElements/paper-elements#1.0.1",
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
+    "polymer-firebase-collection-input": "*",
     "polymer-firebase-login-buttons": "*",
+    "rating-system": "*",
     "simple-login-nav-button": "*"
   },
   "devDependencies": {

@@ -59,10 +59,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
-    <pain-rate-data selected-tab="{{selectedTab}}"></pain-rate-data>
+    <!-- <firebase-collection id="firebasePeopleId"
+      location="[[firebasePeopleUrl]]" data="{{firebasePeople}}"></firebase-collection> -->
 
     <!-- Main Area -->
-      <paper-scroll-header-panel main condenses keep-condensed-header>
+      <paper-scroll-header-panel main fixed>
 
         <!-- Main Toolbar -->
         <paper-toolbar id="mainToolbar">
@@ -75,10 +76,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <span class="flex"></span>
 
-          <!-- Toolbar icons -->
-          <simple-login-nav-button user="[[user]]" hide-login="{{hideLogin}}"
-          on-login-clicked="loginClicked" on-logout-clicked="logoutClicked"></simple-login-nav-button>
-
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
 
@@ -86,30 +83,190 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           </div>
 
+          <!-- Toolbar icons -->
+          <simple-login-nav-button user="[[user]]" hide-login="{{hideLogin}}"
+          on-login-clicked="loginClicked" on-logout-clicked="logoutClicked"></simple-login-nav-button>
+
         </paper-toolbar>
 
         <!-- Tabs to select different routes -->
-        <paper-tabs selected="{{selectedTab}}">
+        <paper-tabs class="tab-bar" selected="{{selectedTab}}">
 
-          <paper-tab>Track</paper-tab>
+          <paper-tab disabled$="[[!user]]">Track</paper-tab>
 
-          <paper-tab>Chart</paper-tab>
+          <paper-tab disabled$="[[!user]]">Chart</paper-tab>
 
-          <paper-tab>Settings</paper-tab>
+          <paper-tab disabled$="[[!user]]">Settings</paper-tab>
           
         </paper-tabs>
 
         <!-- Main Content -->
         <div class="content">
+          
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
 
             <section data-route="home">
+
+              <div class="card-container">
+
+                <paper-card class="rating-card" elevation="1">
+
+                  <div class="grid-container">
+
+                    <div class="row">
+
+                      <span class="col-10">
+
+                        <div class="list-select-head">
+
+                          Categories:
+
+                        </div>
+
+                      </span>
+
+                    </div>
+
+                    <div class="row">
+
+                      <span class="col-5">
+
+                        <paper-dropdown-menu label="Categories" selected-item="{{selectedCategory}}">
+
+                          <paper-menu class="dropdown-content" selected="0">
+
+                            <template is="dom-repeat" items="[[categories]]">
+
+                              <paper-item label="[[item.value]]" value="{{item}}"><span>[[item.value]]</span></paper-item>
+
+                            </template>
+
+                          </paper-menu>
+
+                        </paper-dropdown-menu>
+
+                      </span>
+
+                      <span class="col-1">
+
+                        &nbsp;
+
+                      </span>
+
+                      <span class="col-4">
+
+                        <div class="category-error">
+
+                          <span class="error" hidden$="[[selectedCategory]]">Select a category</span>
+
+                        </div>
+
+                        &nbsp;
+
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  <!-- People array -->
+                  <div class="grid-container">
+
+                    <div class="row">
+
+                      <span class="col-10">
+
+                        <div class="list-select-head">
+
+                          People:
+
+                        </div>
+
+                      </span>
+
+                    </div>
+
+                    <div class="row">
+
+                      <span class="col-5">
+
+                        <paper-dropdown-menu label="People" selected-item="{{selectedPerson}}">
+
+                          <paper-menu class="dropdown-content" selected="0">
+
+                            <template is="dom-repeat" items="[[people]]">
+
+                              <paper-item label="[[item.value]]" value="{{item}}"><span>[[item.value]]</span></paper-item>
+
+                            </template>
+
+                          </paper-menu>
+
+                        </paper-dropdown-menu>
+
+                      </span>
+
+                      <span class="col-1">
+
+                        &nbsp;
+
+                      </span>
+
+                      <span class="col-4">
+
+                        <div class="category-error">
+
+                          <span class="error" hidden$="[[selectedPerson]]">Select a person</span>
+
+                        </div>
+
+                        &nbsp;
+
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  <div class="rating-system-container">
+
+                    <div class="rating-system-head">
+
+                      Notes:
+
+                    </div>
+
+                    <paper-input class="notes-input" label="Notes" value="{{notes}}"></paper-input>
+
+                    <div class="rating-system-head">
+
+                      Rate the pain:
+
+                    </div>
+
+                    <rating-system happy-icon="social:mood" sad-icon="social:mood-bad" okay-icon="face" rating="{{rating}}"></rating-system>
+
+                    <paper-button disabled$=[[!user]] on-click="rate" raised>Rate It</paper-button>
+
+                    <div class="error top-mar-1" hidden$=[[user]]>
+
+                      You must be logged in to submit a rating
+
+                    </div>
+
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+              <paper-toast id="noteToast" text="Note added!" aria-hidden="true"></paper-toast>
 
             </section>
 
             <section data-route="login">
 
-              <div class="login-card-container">
+              <div class="card-container">
 
                 <paper-card class="login-card" elevation="1">
 
@@ -123,15 +280,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     <div class="login-button-container">
           
-                      <firebase-google-login-button  firebase-url="fb-google-login-app.firebaseIO.com" user="{{user}}"
-                        on-google-logged-in="googleLoggedIn" on-google-logged-out="googleLoggedOut" 
+                      <firebase-google-login-button  firebase-url="[[firebaseUrl]]" user="{{user}}"
+                        on-google-logged-in="googleLoggedIn" on-google-logged-out="googleLoggedOut"
                         auto-click="{{googleAutoLogin}}"></firebase-google-login-button>
 
                     </div>
 
                     <div class="login-button-container">
                       
-                      <firebase-facebook-login-button firebase-url="fb-fbook-login-app.firebaseIO.com" user="{{user}}"
+                      <firebase-facebook-login-button firebase-url="[[firebaseUrl]]" user="{{user}}"
                         on-facebook-logged-in="facebookLoggedIn" on-facebook-logged-out="facebookLoggedOut"
                         auto-click="{{facebookAutoLogin}}"></firebase-facebook-login-button>
 
@@ -139,8 +296,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     <div class="login-button-container">
                       
-                      <firebase-twitter-login-button firebase-url="fb-twitter-login-app.firebaseIO.com" user="{{user}}"
-                        on-twitter-logged-in="twitterLoggedIn" on-twitter-logged-out="twitterLoggedOut"
+                      <firebase-twitter-login-button firebase-url="[[firebaseUrl]]" user="{{user}}"
+                        on-twitter-logged-in="twitterLoggedIn" on-twitter-logged-out="twitterLoggedOut" options="[[sessionOptions]]"
                         auto-click="{{twitterAutoLogin}}"></firebase-twitter-login-button>
 
                     </div>
@@ -153,11 +310,82 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             </section>
 
+            <!-- Settings for inputing categories and people -->
+            <section data-route="settings">
+
+              <div class="card-container">
+
+                <paper-card class="settings-card" elevation="1">
+
+                  <div class="settings-content-wrapper">
+
+                    <polymer-firebase-collection-input label="Categories:" paper-input-label="Input category" 
+                    firebase-url="[[firebaseCategoriesUrl]]" collection="{{categories}}" 
+                    on-firebase-value="collectionIsEmpty"></polymer-firebase-collection-input>  
+
+                    <div class="error" hidden$="[[!categoriesEmpty]]">
+
+                      You must enter at least one category
+
+                    </div>
+
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+              <div class="card-container">
+
+                <paper-card class="settings-card" elevation="1">
+
+                  <div class="settings-content-wrapper">
+
+                    <tag-input label="People:" paper-input-label="Input person" input-list="{{people}}"
+                    on-tag-input-added="checkPeople" on-tag-input-removed="checkPeople">
+                    </tag-input>
+
+                    <polymer-firebase-collection-input label="People:" paper-input-label="Input person" 
+                    firebase-url="[[firebasePeopleUrl]]" collection="{{people}}"
+                    on-firebase-value="peopleAreEmpty"></polymer-firebase-collection-input> 
+
+                    <div class="error" hidden$="[[!peopleEmpty]]">
+
+                      You must enter at least one person
+
+                    </div>
+
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+            </section>
+
+            <section data-route="chart">
+
+              <div class="card-container">
+
+                <paper-card class="chart-card" elevation="1">
+
+                  You are here
+
+                </paper-card>
+
+              </div>
+              
+            </section>    
+
           </iron-pages>
 
         </div>
 
       </paper-scroll-header-panel>
+
+      <pain-rate-data selected-tab="{{selectedTab}}" user="[[user]]" firebase-url="{{firebaseUrl}}"></pain-rate-data>
+
+      <firebase-collection id="firebaseRatingId" location="{{ratingsUrl}}" data="{{ratings}}" on-firebase-value="areRatingsEmpty"></firebase-collection>
 
     <!-- Uncomment next block to enable Service Worker support (1/2) -->
     <!--

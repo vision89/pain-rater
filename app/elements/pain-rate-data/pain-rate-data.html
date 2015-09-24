@@ -26,14 +26,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             value: 0,
             observer: '_switchRoute'
 
+          },
+
+          user: {
+
+            type: Boolean,
+            notify: false
+
+          },
+
+          firebaseUrl: {
+
+            type: String,
+            value: '<app-name>.firebaseIO.com',
+            reflectToAttribute: true,
+            notify: true,
+            readOnly: true
+
           }
           
-        },
-
-        _printVal: function ( v ) {
-
-          console.log( v );
-
         },
 
         _switchRoute: function ( selected ) {
@@ -47,17 +58,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             case 1:
 
-              page.redirect( 'chart' );
+              page.redirect( '/chart' );
               break;
 
              case 2:
 
-              page.redirect( 'settings' );
+              page.redirect( '/settings' );
               break; 
 
           }
-
-          this.selectedTab = -1;
 
         },
 

@@ -1,3 +1,4 @@
+
 /*
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -18,7 +19,76 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // See https://github.com/Polymer/polymer/issues/1381
   window.addEventListener('WebComponentsReady', function() {
     // imports are loaded and elements have been registered
-    
+
+    app.categoriesEmpty = true;
+    app.peopleEmpty = true;
+    app.ratingsEmpty = true;
+
+    /**
+     * Logout process
+     * @return {[type]} [description]
+     */
+    function _logout () {
+
+      app.selectedCategory = null;
+      app.selectedPerson = null;
+      app.notes = '';
+      app.rating = 1;
+      app.$.firebaseRatingId.disconnect();
+      app.categoriesDisconnect = true;
+      app.peopleDisconnect = true;
+      app.categories = [];
+      app.people = [];
+      app.firebaseCategoriesUrl = '';
+      app.firebasePeopleUrl = '';
+      app.ratingsUrl = '';
+      
+    };
+
+    /**
+     * Set routes on login
+     * @return {[type]} [description]
+     */
+    function _login () {
+
+      app.firebaseCategoriesUrl = app.firebaseUrl + '/' + app.user.uid + '/categories';
+      app.firebasePeopleUrl = app.firebaseUrl + '/' + app.user.uid + '/people';
+      app.ratingsUrl = app.firebaseUrl + '/' + app.user.uid + '/ratings'
+
+    };
+
+    /**
+     * States if categories collection is empty
+     * @return {[type]} [description]
+     */
+    app.collectionIsEmpty = function ( e ) {
+
+      app.categoriesEmpty = app.categories.length === 0;
+
+    };
+
+    /**
+     * States if people collection is empty
+     * @param  {[type]} e [description]
+     * @return {[type]}   [description]
+     */
+    app.peopleAreEmpty = function ( e ) {
+
+      app.peopleEmpty = app.people.length === 0;
+
+    };
+
+    /**
+     * States if the ratings collection is empty
+     * @param  {[type]} e [description]
+     * @return {[type]}   [description]
+     */
+    app.areRatingsEmpty = function ( e ) {
+
+      app.ratingsEmpty = app.ratings.length === 0;
+
+    };
+
     /**
      * login button clicked
      * @return {[type]} [description]
@@ -35,6 +105,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @return {[type]} [description]
      */
     app.logoutClicked = function () {
+
+      _logout();
 
       switch ( app.loginType ) {
 
@@ -58,9 +130,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     };
 
+    /**
+     * Go to previous list
+     * @return {[type]} [description]
+     */
     app.goBack = function () {
 
       page.redirect( app.goBackRoute );
+
+    };
+
+    /**
+     * Submit a rating
+     * @return {[type]} [description]
+     */
+    app.rate = function () {
+
+      this.$.firebaseRatingId.add({
+
+          'category': this.selectedCategory.value,
+          'person': this.selectedPerson.value,
+          'notes': this.notes,
+          'rating': this.rating,
+          'timestamp': Date.now()
+
+        });
+
+        this.notes = '';
+        this.rating = 1;
+
+        document.querySelector( '#noteToast' ).show();
 
     };
 
@@ -72,6 +171,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       page.redirect( '/' );
       app.loginType = 'google';
+      _login();
 
     };
 
@@ -94,6 +194,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       page.redirect( '/' );
       app.loginType = 'facebook';
+      _login();
 
     };
 
@@ -116,6 +217,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       page.redirect( '/' );
       app.loginType = 'twitter';
+      _login();
 
     };
 
