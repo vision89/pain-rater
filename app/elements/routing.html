@@ -39,11 +39,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     });
 
-    page( '/chart', function () {
+    page( '/summary', function () {
 
-      app.route = 'chart';
+      app.route = 'summary';
       app.hideLogin = false;
       app.goBackRoute = null;
+
+    });
+
+    page( '/summarized-data', function () {
+
+      app.route = 'summarized-data';
+      app.hideLogin = false;
+      app.goBackRoute = '/summary';
+
+      //__firebaseKey__
+      app.summarizedData = [];
+
+      var beginDate = new Date ( app.beginDate );
+      app.beginDateDisplay = beginDate.getMonth() + 1 + '/' + beginDate.getDate() + '/' + beginDate.getFullYear();
+      var endDate = new Date ( app.endDate );
+      app.endDateDisplay = endDate.getMonth() + 1 + '/' + endDate.getDate() + '/' + endDate.getFullYear();
+      var ratingDate = null;
+
+      for ( var i = 0; i < app.ratings.length; ++i ) {
+
+        ratingDate = new Date ( app.ratings[i].timestamp );
+
+        if ( app.ratings[i].category.__firebaseKey__ === app.selectedSummaryCategory.value.__firebaseKey__ &&
+             app.ratings[i].person.__firebaseKey__ === app.selectedSummaryPerson.value.__firebaseKey__ &&
+             ratingDate >= beginDate && ratingDate <= endDate ) {
+
+          app.push( 'summarizedData', app.ratings[i] );
+
+        }
+
+      }
 
     });
 

@@ -79,7 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
 
-            <div class="app-name">Pain Rater</div>
+            <div class="app-name">Pain Rater <span class="error">*beta</span></div>
 
           </div>
 
@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <paper-tab disabled$="[[!user]]">Track</paper-tab>
 
-          <paper-tab disabled$="[[!user]]">Chart</paper-tab>
+          <paper-tab disabled$="[[!user]]">Summary</paper-tab>
 
           <paper-tab disabled$="[[!user]]">Settings</paper-tab>
           
@@ -111,122 +111,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 <paper-card class="rating-card" elevation="1">
 
-                  <div class="grid-container">
+                  <div class="error top-mar-1" hidden$=[[user]]>
 
-                    <div class="row">
-
-                      <span class="col-10">
-
-                        <div class="list-select-head">
-
-                          Categories:
-
-                        </div>
-
-                      </span>
+                      You must be logged in to submit a rating
 
                     </div>
 
-                    <div class="row">
+                  <!-- dropdown element -->
+                  <polymer-simple-dropdown label="Select a category:" dropdown-label="Category" 
+                  selected-item="{{selectedCategory}}" items="[[categories]]" default-select="0"
+                  error-message="Please select a category" disabled="[[!user]]"></polymer-simple-dropdown>
 
-                      <span class="col-5">
-
-                        <paper-dropdown-menu label="Categories" selected-item="{{selectedCategory}}">
-
-                          <paper-menu class="dropdown-content" selected="0">
-
-                            <template is="dom-repeat" items="[[categories]]">
-
-                              <paper-item label="[[item.value]]" value="{{item}}"><span>[[item.value]]</span></paper-item>
-
-                            </template>
-
-                          </paper-menu>
-
-                        </paper-dropdown-menu>
-
-                      </span>
-
-                      <span class="col-1">
-
-                        &nbsp;
-
-                      </span>
-
-                      <span class="col-4">
-
-                        <div class="category-error">
-
-                          <span class="error" hidden$="[[selectedCategory]]">Select a category</span>
-
-                        </div>
-
-                        &nbsp;
-
-                      </span>
-
-                    </div>
-
-                  </div>
-
-                  <!-- People array -->
-                  <div class="grid-container">
-
-                    <div class="row">
-
-                      <span class="col-10">
-
-                        <div class="list-select-head">
-
-                          People:
-
-                        </div>
-
-                      </span>
-
-                    </div>
-
-                    <div class="row">
-
-                      <span class="col-5">
-
-                        <paper-dropdown-menu label="People" selected-item="{{selectedPerson}}">
-
-                          <paper-menu class="dropdown-content" selected="0">
-
-                            <template is="dom-repeat" items="[[people]]">
-
-                              <paper-item label="[[item.value]]" value="{{item}}"><span>[[item.value]]</span></paper-item>
-
-                            </template>
-
-                          </paper-menu>
-
-                        </paper-dropdown-menu>
-
-                      </span>
-
-                      <span class="col-1">
-
-                        &nbsp;
-
-                      </span>
-
-                      <span class="col-4">
-
-                        <div class="category-error">
-
-                          <span class="error" hidden$="[[selectedPerson]]">Select a person</span>
-
-                        </div>
-
-                        &nbsp;
-
-                      </span>
-
-                    </div>
-
-                  </div>
+                  <polymer-simple-dropdown label="Select a person:" dropdown-label="Person" 
+                  selected-item="{{selectedPerson}}" items="[[people]]" default-select="0"
+                  error-message="Please select a person"  disabled="[[!user]]"></polymer-simple-dropdown>
 
                   <div class="rating-system-container">
 
@@ -236,7 +134,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     </div>
 
-                    <paper-input class="notes-input" label="Notes" value="{{notes}}"></paper-input>
+                    <paper-input class="notes-input" label="Notes" value="{{notes}}"
+                    disabled$="[[!user]]"></paper-input>
 
                     <div class="rating-system-head">
 
@@ -244,15 +143,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     </div>
 
-                    <rating-system happy-icon="social:mood" sad-icon="social:mood-bad" okay-icon="face" rating="{{rating}}"></rating-system>
+                    <rating-system happy-icon="social:mood" sad-icon="social:mood-bad" okay-icon="face" 
+                    rating="{{rating}}" disabled="[[!user]]"></rating-system>
 
                     <paper-button disabled$=[[!user]] on-click="rate" raised>Rate It</paper-button>
-
-                    <div class="error top-mar-1" hidden$=[[user]]>
-
-                      You must be logged in to submit a rating
-
-                    </div>
 
                   </div>
 
@@ -363,18 +257,134 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             </section>
 
-            <section data-route="chart">
+            <section data-route="summary">
 
               <div class="card-container">
 
-                <paper-card class="chart-card" elevation="1">
+                <paper-card class="summary-card" elevation="1">
 
-                  You are here
+                  <polymer-simple-dropdown label="Select a category:" dropdown-label="Category" 
+                  selected-item="{{selectedSummaryCategory}}" items="[[categories]]" default-select="0"
+                  error-message="Please select a category" disabled="[[!user]]"></polymer-simple-dropdown>
+
+                  <polymer-simple-dropdown label="Select a person:" dropdown-label="Person" 
+                  selected-item="{{selectedSummaryPerson}}" items="[[people]]" default-select="0"
+                  error-message="Please select a person"  disabled="[[!user]]"></polymer-simple-dropdown>
+
+                  <div class="date-picker-container">
+
+                    <div class="date-picker-head">
+
+                      End Date:
+
+                    </div>
+
+                    <paper-date-picker date="{{beginDate}}"></paper-date-picker>
+
+                    <div class="error" hidden$="[[beginDate]]">
+
+                      You must select a begining date
+
+                    </div>
+
+                  </div>
+
+                  <div class="date-picker-container">
+
+                    <div class="date-picker-head">
+
+                      End Date:
+
+                    </div>
+
+                    <paper-date-picker date="{{endDate}}"></paper-date-picker>
+
+                    <div class="error" hidden$="[[endDate]]">
+
+                      You must select an end date
+
+                    </div>
+
+                  </div>
+
+                  <div class="summary-button-container">
+
+                    <paper-button disabled$=[[!user]] on-click="summarize" raised>Get Summary</paper-button>
+
+                  </div>
 
                 </paper-card>
 
               </div>
+
+              <paper-toast id="summaryToast" text="You must select a begin and end date" aria-hidden="true"></paper-toast>
               
+            </section>
+
+            <section data-route="summarized-data">
+
+              <div class="card-container">
+
+                <paper-card class="summary-card" elevation="1">
+
+                  <div class="summary-card-wrapper">
+
+                    <div class="summary-head"><span>[[beginDateDisplay]]</span> - <span>[[endDateDisplay]]</span></div>
+
+                    <div>
+
+                      <span class="summary-title">Name: </span><span>[[selectedSummaryPerson.value.value]]</span>
+                      
+                    </div>
+
+                    <div>
+
+                      <span class="summary-title">Issue: </span><span>[[selectedSummaryCategory.value.value]]</span>
+                      
+                    </div>
+
+                    <div>
+
+                      <span class="summary-title">Total Incidents: </span><span>[[summarizedData.length]]</span>
+
+                    </div>
+
+                  </div>
+
+                </paper-card>
+
+                <template is="dom-repeat" items="[[summarizedData]]">
+
+                  <paper-card class="summary-card" elevation="1">
+
+                    <div class="summary-card-wrapper">
+
+                      <div>
+
+                        <span class="summary-title">Time: </span><span>[[formatTime( item.timestamp )]]</span>
+
+                      </div>
+
+                      <div>
+
+                        <span class="summary-title">Rating: </span><span>[[item.rating]]</span>
+
+                      </div>
+
+                      <div>
+
+                        <span class="summary-title">Notes: </span><span>[[item.notes]]</span>
+
+                      </div>
+
+                    </div>
+
+                  </paper-card>  
+
+                </template>
+
+              </div>  
+
             </section>    
 
           </iron-pages>

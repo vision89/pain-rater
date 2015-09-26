@@ -23,6 +23,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.categoriesEmpty = true;
     app.peopleEmpty = true;
     app.ratingsEmpty = true;
+    app.beginDate = null;
+    app.endDate = null;
+    app.summarizedData = [];
 
     /**
      * Logout process
@@ -42,8 +45,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.firebaseCategoriesUrl = '';
       app.firebasePeopleUrl = '';
       app.ratingsUrl = '';
+      app.beginDate = null;
+      app.endDate = null;
+      app.summarizedData = [];
       
-    };
+    }
 
     /**
      * Set routes on login
@@ -53,7 +59,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       app.firebaseCategoriesUrl = app.firebaseUrl + '/' + app.user.uid + '/categories';
       app.firebasePeopleUrl = app.firebaseUrl + '/' + app.user.uid + '/people';
-      app.ratingsUrl = app.firebaseUrl + '/' + app.user.uid + '/ratings'
+      app.ratingsUrl = app.firebaseUrl + '/' + app.user.uid + '/ratings';
+
+    }
+
+    app.formatTime = function ( time ) {
+
+      var newDate = new Date ( time );
+
+      var hours = newDate.getHours();
+      var minutes = newDate.getMinutes();
+
+      var ampm = hours >= 12 ? 'pm' : 'am';
+
+      if ( minutes < 10 ) {
+
+        minutes = '0' + minutes;
+
+      }
+
+      return ( newDate.getMonth() + 1 ) + '/' + newDate.getDate() + '/' + newDate.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
 
     };
 
@@ -61,7 +86,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * States if categories collection is empty
      * @return {[type]} [description]
      */
-    app.collectionIsEmpty = function ( e ) {
+    app.collectionIsEmpty = function () {
 
       app.categoriesEmpty = app.categories.length === 0;
 
@@ -72,7 +97,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @param  {[type]} e [description]
      * @return {[type]}   [description]
      */
-    app.peopleAreEmpty = function ( e ) {
+    app.peopleAreEmpty = function () {
 
       app.peopleEmpty = app.people.length === 0;
 
@@ -83,9 +108,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @param  {[type]} e [description]
      * @return {[type]}   [description]
      */
-    app.areRatingsEmpty = function ( e ) {
+    app.areRatingsEmpty = function () {
 
       app.ratingsEmpty = app.ratings.length === 0;
+
+    };
+
+    app.summarize = function () {
+
+      if ( app.beginDate === null || app.endDate === null ) {
+
+        //Show toast
+        document.querySelector( '#summaryToast' ).show();
+
+      } else {
+
+        page.redirect( '/summarized-data' );
+
+      }
 
     };
 

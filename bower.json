@@ -14,7 +14,9 @@
     "polymer-firebase-collection-input": "*",
     "polymer-firebase-login-buttons": "*",
     "rating-system": "*",
-    "simple-login-nav-button": "*"
+    "simple-login-nav-button": "*",
+    "polymer-simple-dropdown": "vision89/polymer-simple-dropdown#master",
+    "paper-date-picker": "bendavis78/paper-date-picker#~1.0.3"
   },
   "devDependencies": {
     "web-component-tester": "*",
