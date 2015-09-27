@@ -38,10 +38,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           firebaseUrl: {
 
             type: String,
-            value: '<Your-App>.firebaseIO.com',
+            value: '<Your app>.firebaseIO.com',
             reflectToAttribute: true,
             notify: true,
             readOnly: true
+
+          },
+
+          needSettings: {
+
+            type: Boolean,
+            value: true,
+            notify: true,
+            reflectToAttribute: true
+
+          },
+
+          categoriesEmpty: {
+
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+
+          },
+
+          peopleEmpty: {
+
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
 
           }
           

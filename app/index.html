@@ -31,16 +31,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="PSK">
-  <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+  <link rel="icon" sizes="192x192" href="images/touch/mipmap-xxxhdpi/ic_launcher_192x192.png">
 
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
-  <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="images/touch/mipmap-xhdpi/ic_launcher_96x96.png">
 
   <!-- Tile icon for Win8 (144x144) -->
-  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="msapplication-TileImage" content="images/touch/mipmap-xxhdpi/ic_launcher_144x144.png">
 
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
@@ -79,7 +79,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
 
-            <div class="app-name">Pain Rater <span class="error">*beta</span></div>
+            <div class="app-name">Pain Rater 
+
+            <span class="error">*beta</span></div>
 
           </div>
 
@@ -111,11 +113,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 <paper-card class="rating-card" elevation="1">
 
+                  <div class="card-helper" style="display:inline-block">
+
+                    <iron-icon icon="help-outline" class="help-style" on-click="showRatingModal"></iron-icon>
+
+                    <paper-tooltip>What is pain rater?</paper-tooltip>
+
+                  </div>
+
                   <div class="error top-mar-1" hidden$=[[user]]>
 
-                      You must be logged in to submit a rating
+                      Please log in to submit a rating
 
-                    </div>
+                  </div>
+
+                  <div class="error top-mar-1" hidden$=[[!needSettings]]>
+
+                      Please go to settings and create a category and a person
+
+                  </div>
 
                   <!-- dropdown element -->
                   <polymer-simple-dropdown label="Select a category:" dropdown-label="Category" 
@@ -215,7 +231,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     <polymer-firebase-collection-input label="Categories:" paper-input-label="Input category" 
                     firebase-url="[[firebaseCategoriesUrl]]" collection="{{categories}}" 
-                    on-firebase-value="collectionIsEmpty"></polymer-firebase-collection-input>  
+                    on-firebase-value="categoriesAreEmpty"></polymer-firebase-collection-input>  
 
                     <div class="error" hidden$="[[!categoriesEmpty]]">
 
@@ -262,6 +278,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <div class="card-container">
 
                 <paper-card class="summary-card" elevation="1">
+
+                  <div class="summary-card-wrapper">
+
+                    <div class="card-helper" style="display:inline-block">
+
+                      <iron-icon icon="help-outline" class="help-style" on-click="showSummaryModal"></iron-icon>
+
+                      <paper-tooltip>How do I create a summary?</paper-tooltip>
+
+                    </div>
 
                   <polymer-simple-dropdown label="Select a category:" dropdown-label="Category" 
                   selected-item="{{selectedSummaryCategory}}" items="[[categories]]" default-select="0"
@@ -393,7 +419,77 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       </paper-scroll-header-panel>
 
-      <pain-rate-data selected-tab="{{selectedTab}}" user="[[user]]" firebase-url="{{firebaseUrl}}"></pain-rate-data>
+      <paper-dialog id="ratingDialog">
+
+        <h2>Pain Rater</h2>
+
+        <paper-dialog-scrollable>
+
+          <p>
+
+            <div>
+
+              <b>What is pain rater?</b>
+
+            </div>
+
+            <div>
+
+              For several years my daughter has been experiencing hip pain.  After seeing the family doctor, getting x-rays, and seeing a speicialist, we were told that it was likely juvenile arthritis.  The specialist advised my wife and I to keep a diary of her pain, so that we could let him know the frequency of it at each check up.  As a web developer I felt like we could do a bit better than keeping a paper diary, and thus pain rater was born.
+
+            </div>
+
+          </p>
+          
+          <p>  
+
+            <div>
+
+              <b>How do I submit a rating?</b>
+
+            </div>
+
+            <div>
+
+              To submit a rating you must have added a category and a person.  You can do this on the settings tab.  For me a category could be 'Hip Pain' and the person I am tracking this for could be 'Elliot'.  Once this is done you may submit a rating by selecting a category and person in the dropdowns, and selecting a pain rating of 1 - 10 where 1 is the least pain and 10 is the greatest.  Optionally you may add a note.  The time will also be recorded at the moment the rating is submitted.
+            
+            </div>
+
+          </p>
+
+        </paper-dialog-scrollable>
+
+      </paper-dialog>
+
+      <paper-dialog id="summaryDialog">
+
+        <h2>Pain Rater</h2>
+
+        <paper-dialog-scrollable>
+
+          <p>
+
+            <div>
+
+              <b>How do I create a summary?</b>
+
+            </div>
+
+            <div>
+
+              A summary is a break down of pain incidents.  You simply select a category and person associated with the pain incidents you would like to see, then select the beginning and ending date range.  You will then be directed to another screen with the total and each pain incident listed.
+
+            </div>
+
+          </p>
+
+        </paper-dialog-scrollable>
+
+      </paper-dialog>
+
+      <pain-rate-data selected-tab="{{selectedTab}}" user="[[user]]" firebase-url="{{firebaseUrl}}"
+      need-settings="{{needSettings}}" categories-empty="{{categoriesEmpty}}"
+      people-empty="{{peopleEmpty}}"></pain-rate-data>
 
       <firebase-collection id="firebaseRatingId" location="{{ratingsUrl}}" data="{{ratings}}" on-firebase-value="areRatingsEmpty"></firebase-collection>
 

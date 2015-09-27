@@ -119,6 +119,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
   }
 
+  paper-dialog {
+
+    background-color: white;
+    padding: 1em;
+    max-width: 35em;
+    max-height: 31em;
+    z-index: 101;
+
+  }
+
+  .card-helper {
+
+    float: right;
+    margin-top: 1em;
+    margin-right: 2.5em;
+
+  }
+
   .top-mar-1 {
 
     margin-top: 1em;
@@ -142,7 +160,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     text-align: center;
     margin-bottom: 1em;
-    margin-top: 0.5em;
+    margin-top: 3em;
 
   }
 
@@ -199,7 +217,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     min-width: 80%;
     max-width: 98%;
-    margin-top: 2em;
+    margin-top: 1em;
 
   }
 
@@ -417,9 +435,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    */
 
   /* mobile-small */
-  @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) { }
+  @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) { 
+
+    .card-container {
+
+      text-align: center;
+      margin-bottom: 1em;
+      margin-top: 6em;
+
+    }
+
+  }
   /* mobile-large */
-  @media all and (min-width: 361px) and (orientation: portrait) { }
+  @media all and (min-width: 361px) and (orientation: portrait) { 
+
+    .card-container {
+
+      text-align: center;
+      margin-bottom: 1em;
+      margin-top: 6em;
+
+    }
+
+  }
   /* mobile-small-landscape */
   @media all and (min-width: 0) and (max-width: 480px) and (orientation: landscape) { }
   /* mobile-large-landscape */

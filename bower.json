@@ -16,7 +16,8 @@
     "rating-system": "*",
     "simple-login-nav-button": "*",
     "polymer-simple-dropdown": "vision89/polymer-simple-dropdown#master",
-    "paper-date-picker": "bendavis78/paper-date-picker#~1.0.3"
+    "paper-date-picker": "bendavis78/paper-date-picker#~1.0.3",
+    "paper-tooltip": "PolymerElements/paper-tooltip#~1.1.0"
   },
   "devDependencies": {
     "web-component-tester": "*",

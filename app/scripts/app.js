@@ -20,8 +20,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   window.addEventListener('WebComponentsReady', function() {
     // imports are loaded and elements have been registered
 
-    app.categoriesEmpty = true;
-    app.peopleEmpty = true;
     app.ratingsEmpty = true;
     app.beginDate = null;
     app.endDate = null;
@@ -48,6 +46,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.beginDate = null;
       app.endDate = null;
       app.summarizedData = [];
+      app.needSettings = true;
+      app.categoriesEmpty = false;
+      app.peopleEmpty = false;
       
     }
 
@@ -63,6 +64,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     }
 
+
+    /**
+     * Format time to display on settings cards
+     * @param  {[type]} time [description]
+     * @return {[type]}      [description]
+     */
     app.formatTime = function ( time ) {
 
       var newDate = new Date ( time );
@@ -71,6 +78,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var minutes = newDate.getMinutes();
 
       var ampm = hours >= 12 ? 'pm' : 'am';
+
+      if ( hours > 12 ) {
+
+        hours = hours - 12;
+
+      }
 
       if ( minutes < 10 ) {
 
@@ -82,13 +95,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     };
 
-    /**
-     * States if categories collection is empty
-     * @return {[type]} [description]
-     */
-    app.collectionIsEmpty = function () {
+    app.categoriesAreEmpty = function () {
 
-      app.categoriesEmpty = app.categories.length === 0;
+      app.categoriesEmpty = app.categories.length === 0 && app.user;
+
+      if ( app.categories.length === 0 || app.people.length === 0 ) {
+
+        app.needSettings = true;
+
+      } else {
+
+        app.needSettings = false;
+
+      }
 
     };
 
@@ -99,7 +118,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      */
     app.peopleAreEmpty = function () {
 
-      app.peopleEmpty = app.people.length === 0;
+      app.peopleEmpty = app.people.length === 0 && app.user;
+
+      if ( app.categories.length === 0 || app.people.length === 0 ) {
+
+        app.needSettings = true;
+
+      } else {
+
+        app.needSettings = false;
+
+      }
+
+    };
+
+    /**
+     * Rating modal dialog
+     * @return {[type]} [description]
+     */
+    app.showRatingModal = function () {
+
+      app.$.ratingDialog.toggle();
+
+    };
+
+    /**
+     * Show a summary dialog
+     * @return {[type]} [description]
+     */
+    app.showSummaryModal = function () {
+
+      app.$.summaryDialog.toggle(); 
 
     };
 
