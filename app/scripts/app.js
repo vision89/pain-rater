@@ -31,6 +31,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      */
     function _logout () {
 
+      var categoryInput = document.querySelector( '#category-collection-input' );
+      categoryInput.disconnect();
+
+      var peopleInput = document.querySelector( '#person-collection-input' );
+      peopleInput.disconnect();
+
       app.selectedCategory = null;
       app.selectedPerson = null;
       app.notes = '';

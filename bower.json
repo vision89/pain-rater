@@ -11,7 +11,7 @@
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#~1.0.2",
     "paper-elements": "PolymerElements/paper-elements#1.0.1",
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
-    "polymer-firebase-collection-input": "*",
+    "polymer-firebase-collection-input": "vision89/polymer-firebase-collection-input#~1.0.0",
     "polymer-firebase-login-buttons": "*",
     "rating-system": "*",
     "simple-login-nav-button": "*",

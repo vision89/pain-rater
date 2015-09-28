@@ -1,6 +1,6 @@
 {
-  "name": "Polymer Starter Kit",
-  "short_name": "Polymer Starter Kit",
+  "name": "Pain Rater",
+  "short_name": "Pain Rater",
   "icons": [{
         "src": "images/touch/mipmap-mdpi/ic_launcher_48x48.png",
         "sizes": "48x48",

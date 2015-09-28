@@ -13,10 +13,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="">
+  <meta name="description" content="A web based pain journal for rating pain">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="generator" content="Polymer Starter Kit" />
-  <title>Polymer Starter Kit</title>
+  <meta name="generator" content="Pain Rater" />
+  <title>Pain Rater</title>
   <!-- Place favicon.ico in the `app/` directory -->
 
   <!-- Chrome for Android theme color -->
@@ -30,13 +30,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="PSK">
+  <meta name="application-name" content="PR">
   <link rel="icon" sizes="192x192" href="images/touch/mipmap-xxxhdpi/ic_launcher_192x192.png">
 
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
+  <meta name="apple-mobile-web-app-title" content="Pain Rater">
   <link rel="apple-touch-icon" href="images/touch/mipmap-xhdpi/ic_launcher_96x96.png">
 
   <!-- Tile icon for Win8 (144x144) -->
@@ -229,7 +229,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                   <div class="settings-content-wrapper">
 
-                    <polymer-firebase-collection-input label="Categories:" paper-input-label="Input category" 
+                    <polymer-firebase-collection-input id="category-collection-input"
+                    label="Categories:" paper-input-label="Input category" 
                     firebase-url="[[firebaseCategoriesUrl]]" collection="{{categories}}" 
                     on-firebase-value="categoriesAreEmpty"></polymer-firebase-collection-input>  
 
@@ -255,7 +256,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     on-tag-input-added="checkPeople" on-tag-input-removed="checkPeople">
                     </tag-input>
 
-                    <polymer-firebase-collection-input label="People:" paper-input-label="Input person" 
+                    <polymer-firebase-collection-input id="person-collection-input"
+                    label="People:" paper-input-label="Input person" 
                     firebase-url="[[firebasePeopleUrl]]" collection="{{people}}"
                     on-firebase-value="peopleAreEmpty"></polymer-firebase-collection-input> 
 
