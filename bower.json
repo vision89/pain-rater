@@ -12,7 +12,7 @@
     "paper-elements": "PolymerElements/paper-elements#1.0.1",
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
     "polymer-firebase-collection-input": "vision89/polymer-firebase-collection-input#~1.0.0",
-    "polymer-firebase-login-buttons": "*",
+    "polymer-firebase-login-buttons": "vision89/polymer-firebase-login-buttons#~1.0.4",
     "simple-login-nav-button": "*",
     "polymer-simple-dropdown": "vision89/polymer-simple-dropdown#master",
     "paper-date-picker": "bendavis78/paper-date-picker#~1.0.3",

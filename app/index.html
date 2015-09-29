@@ -190,25 +190,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     <div class="login-button-container">
           
-                      <firebase-google-login-button  firebase-url="[[firebaseUrl]]" user="{{user}}"
-                        on-google-logged-in="googleLoggedIn" on-google-logged-out="googleLoggedOut"
-                        auto-click="{{googleAutoLogin}}"></firebase-google-login-button>
+                      <firebase-google-login-button id="google-login-button" 
+                      firebase-url="[[firebaseUrl]]" user="{{user}}"
+                        on-google-logged-in="googleLoggedIn" on-google-logged-out="googleLoggedOut">
+                        </firebase-google-login-button>
 
                     </div>
 
                     <div class="login-button-container">
                       
-                      <firebase-facebook-login-button firebase-url="[[firebaseUrl]]" user="{{user}}"
-                        on-facebook-logged-in="facebookLoggedIn" on-facebook-logged-out="facebookLoggedOut"
-                        auto-click="{{facebookAutoLogin}}"></firebase-facebook-login-button>
+                      <firebase-facebook-login-button id="facebook-login-button"
+                      firebase-url="[[firebaseUrl]]" user="{{user}}"
+                        on-facebook-logged-in="facebookLoggedIn" on-facebook-logged-out="facebookLoggedOut">
+                        </firebase-facebook-login-button>
 
                     </div>
 
                     <div class="login-button-container">
                       
-                      <firebase-twitter-login-button firebase-url="[[firebaseUrl]]" user="{{user}}"
-                        on-twitter-logged-in="twitterLoggedIn" on-twitter-logged-out="twitterLoggedOut" options="[[sessionOptions]]"
-                        auto-click="{{twitterAutoLogin}}"></firebase-twitter-login-button>
+                      <firebase-twitter-login-button id="twitter-login-button"
+                      firebase-url="[[firebaseUrl]]" user="{{user}}"
+                        on-twitter-logged-in="twitterLoggedIn" on-twitter-logged-out="twitterLoggedOut" >
+                        </firebase-twitter-login-button>
 
                     </div>
 

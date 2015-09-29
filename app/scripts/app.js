@@ -208,17 +208,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         case 'facebook':
 
           //Trigger the auto logout process
-          app.facebookAutoLogin = true;
+          var facebook = document.querySelector( '#facebook-login-button' );
+          facebook.loginClicked();
           break;
         case 'google':
 
           //Trigger the auto logout process
-          app.googleAutoLogin = true;
+          var google = document.querySelector( '#google-login-button' );
+          google.loginClicked();
           break;
         case 'twitter':
 
           //Trigger the auto logout process
-          app.twitterAutoLogin = true;
+          var twitter = document.querySelector( '#twitter-login-button' );
+          twitter.loginClicked();
           break;    
 
       }
